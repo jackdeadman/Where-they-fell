@@ -4,6 +4,8 @@ import urllib.request
 
 from html.parser import HTMLParser
 
+import json
+
 
 
 class MyHTMLParser(HTMLParser):
@@ -82,6 +84,9 @@ class PageGetter:
     def feedParser(self):
         self.parser.feed(self.decodedHtml)
         print(self.parser.keys)
+        outputString = json.dumps(self.parser.keys)
+        return self.parser.keys
+
 
     def testOutput(self):
         print('===Decoded html output:===')
@@ -105,10 +110,11 @@ def main():
 
     urlGen = PageIncrement(BASE_URL)
     parser = MyHTMLParser()
+    jsonKeys = []
 
     finishedReading = False
     count = 0
-    COUNT_MAX = 1
+    COUNT_MAX = 5
 
     while not finishedReading and count < COUNT_MAX:
         currentUrl = urlGen.generateUrl()
@@ -116,7 +122,7 @@ def main():
         if not currentPage.tableCheck():
             finishedReading = True
         else:
-            currentPage.feedParser()
+            jsonKeys.append(currentPage.feedParser())
 
 
             print("Reading page " + str(count + 1) + "...")
@@ -125,6 +131,10 @@ def main():
             urlGen.incrementUrl()
 
     print("Total read: " + str(count) + " pages.")
+    print(jsonKeys)
+    fileOutput = json.dumps(jsonKeys)
+    with open("test.json", "w") as fp:
+        fp.write(fileOutput)
 
 
 
