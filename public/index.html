@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WW1 Thing</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="input">
+			<h1>Where they fell</h1>
+			<div class="search-box">
+				<input id="search" type="search" placeholder="Enter a battle...">
+				<!-- <input type="button" value="Search"> -->
+			</div>
+		</div>
+		<div class="results">
+			<div class="battle clearfix">
+				<div class="battle-main clearfix">
+					<div class="thing">
+						<h2 class="battle-name">Battle of the Somme</h2>
+						<ul>
+							<li>Date: 1 July 1916</li>
+							<li>Died: 60,000 casualties</li>
+						</ul>
+						<p>
+							The Battle of the Somme (French: Bataille de la Somme, German: Schlacht an der Somme), also known as the Somme Offensive, was a battle of the First World War fought by the armies of the British and French empires against the German Empire.
+
+						</p>
+					</div>
+					<img src="http://www.rayburntours.com/education/wp-content/uploads/2013/07/battle-of-arras.jpg">
+				</div>
+			</div>
+			<div class="people-container">
+				<h3>Who we think died in "<em id="query"></em>":</h3>
+				<h4 text-align: right>(1000 results)</h4>
+				<ul class="people"></ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+body {
+	background-image: url('bg.jpg');
+}
+
+.input {
+	width: 500px;
+	margin: 200px auto;
+}
+.input>h1{
+	text-align: center;
+	font-size: 4em;
+	margin-bottom: 20px;
+	text-transform: capitalize;
+}
+
+.search-box {
+	position: relative;
+}
+
+.input [type="search"] {
+	width: 100%;
+	padding: 10px;
+	border-radius: 10px;
+	outline: none;
+}
+.input [type="button"] {
+	padding: 13px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.results {
+	background-color: #fff;
+	padding: 10px 100px;
+	min-height: 1000px;
+	margin-top: 600px;
+}
+
+.battle {
+	border: 1px solid #ccc;
+	width: 400px;
+	margin-top: 10px;
+	float: left;
+}
+.battle img{
+	display: inline;
+	width: 100%;
+}
+.battle p {
+	float: left
+}
+.thing {
+	padding: 20px;
+
+}
+.people-container {
+	margin-left: 500px;
+}
