@@ -4,6 +4,8 @@ import urllib.request
 
 from html.parser import HTMLParser
 
+import math
+
 import json
 
 
@@ -49,17 +51,18 @@ class MyHTMLParser(HTMLParser):
         if self.inTable:
             if self.inTr:
                 if self.inTh:
-                    print('Type:', data)
+                   # print('Type:', data)
                     self.lastTh = data
                 elif self.inTd:
-                    print('Data:', data)
-                    print(self.lastTag)
+                    #print('Data:', data)
+                    #print(self.lastTag)
                     if self.lastTag == "th":
                         if data != "Click for Further Information":
-                            print("Dataset key=" + self.lastTh + "data=" + data)
+                            #print("Dataset key=" + self.lastTh + "data=" + data)
                             self.keys[self.lastTh] = data
                         else:
-                            print("Skipping dummy info")
+                            pass
+                            #print("Skipping dummy info")
 
 
 
@@ -103,26 +106,35 @@ class PageIncrement:
     def incrementUrl(self):
         self.currentPage += 1
 
+def progressBar(pos, highest, scrWidth):
+    charPos = int(math.floor((pos / highest) * scrWidth))
+    for i in range(0, charPos):
+        print('+', end='')
+
 def main():
     SITE_URL = "http://www.sheffieldsoldierww1.co.uk/"
     BASE_URL = "http://www.sheffieldsoldierww1.co.uk/search4.php?id="
 
 
     urlGen = PageIncrement(BASE_URL)
-    parser = MyHTMLParser()
     jsonKeys = []
 
     finishedReading = False
     count = 0
-    COUNT_MAX = 5
+    COUNT_MAX = 10
 
     while not finishedReading and count < COUNT_MAX:
+        parser = MyHTMLParser()
+        progressBar(count, COUNT_MAX, 80)
         currentUrl = urlGen.generateUrl()
+        #print(currentUrl)
         currentPage = PageGetter(currentUrl, "utf-8", parser)
         if not currentPage.tableCheck():
             finishedReading = True
         else:
+            print()
             jsonKeys.append(currentPage.feedParser())
+            #print(currentPage.testOutput())
 
 
             print("Reading page " + str(count + 1) + "...")
@@ -131,7 +143,7 @@ def main():
             urlGen.incrementUrl()
 
     print("Total read: " + str(count) + " pages.")
-    print(jsonKeys)
+    #print(jsonKeys)
     fileOutput = json.dumps(jsonKeys)
     with open("test.json", "w") as fp:
         fp.write(fileOutput)
