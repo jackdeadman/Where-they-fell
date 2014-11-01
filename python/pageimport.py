@@ -3,11 +3,8 @@
 # -*- coding: utf-8 -*-
 
 import urllib.request
-
 from html.parser import HTMLParser
-
 import math
-
 import json
 
 
@@ -91,8 +88,6 @@ class PageGetter:
         #print(self.parser.keys)
         outputString = json.dumps(self.parser.keys)
         return self.parser.keys
-
-
     def testOutput(self):
         print('===Decoded html output:===')
         print(self.decodedHtml)
