@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 
 import urllib.request
@@ -86,7 +88,7 @@ class PageGetter:
             return False
     def feedParser(self):
         self.parser.feed(self.decodedHtml)
-        print(self.parser.keys)
+        #print(self.parser.keys)
         outputString = json.dumps(self.parser.keys)
         return self.parser.keys
 
@@ -110,6 +112,7 @@ def progressBar(pos, highest, scrWidth):
     charPos = int(math.floor((pos / highest) * scrWidth))
     for i in range(0, charPos):
         print('+', end='')
+    print()
 
 def main():
     SITE_URL = "http://www.sheffieldsoldierww1.co.uk/"
@@ -121,23 +124,21 @@ def main():
 
     finishedReading = False
     count = 0
-    COUNT_MAX = 10
+    COUNT_MAX = 20
 
     while not finishedReading and count < COUNT_MAX:
         parser = MyHTMLParser()
-        progressBar(count, COUNT_MAX, 80)
         currentUrl = urlGen.generateUrl()
         #print(currentUrl)
         currentPage = PageGetter(currentUrl, "utf-8", parser)
         if not currentPage.tableCheck():
             finishedReading = True
         else:
-            print()
             jsonKeys.append(currentPage.feedParser())
             #print(currentPage.testOutput())
 
-
-            print("Reading page " + str(count + 1) + "...")
+            print("Reading page " + str(count + 1) + "/" + str(COUNT_MAX) + "...")
+            progressBar(count, COUNT_MAX, 80)
 
             count += 1
             urlGen.incrementUrl()
