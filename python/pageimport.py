@@ -103,6 +103,23 @@ class PageIncrement:
     def incrementUrl(self):
         self.currentPage += 1
 
+class PageGroup:
+
+    def __init__(self, groupKey, groupValue, dataset):
+        self.GROUP_KEY = groupKey
+        self.GROUP_VALUE = groupValue
+        self.DATASET = dataset
+        self.pages = []
+        self.createGroup()
+    def createGroup(self):
+        for person in self.DATASET:
+            if self.GROUP_KEY in person:
+                if person[self.GROUP_KEY] == self.GROUP_VALUE:
+                    self.pages.append(person)
+    def getGroupData(self):
+        return self.pages
+
+
 def progressBar(pos, highest, scrWidth):
     charPos = int(math.floor((pos / highest) * scrWidth))
     for i in range(0, charPos):
@@ -144,6 +161,8 @@ def main():
     with open("test.json", "w") as fp:
         fp.write(fileOutput)
 
+    surnameAbbey = PageGroup("Surname", "Abbey", jsonKeys)
+    print(surnameAbbey.getGroupData())
 
 
 if __name__ == '__main__': main()
